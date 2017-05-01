@@ -1,10 +1,11 @@
 <template>
   <div class='ui centered card question-group'>
     <div class='content'>
-      <h1 class="group-title">{{ group.groupTitle }}</h1>
-      <span>{{ group.selected }}</span>
+      <h1 class="group-title">{{ group.groupTitle }} ( <span>{{ group.selected }}</span>)</h1>
+
       <question
               v-on:groupSelected="disableGroup"
+              v-on:deselectGroup="deselectAnswer"
               v-for="question in group.questions"
               :is-group-selected="group.selected"
               :group-socre="group.groupScore"
@@ -15,8 +16,7 @@
 </template>
 
 <script type="text/javascript">
-  import Question from './Question'
-
+  import Question from './Question/Question.vue'
   export default {
     props: ['group'],
     components: {
@@ -27,6 +27,13 @@
         this.group.selected = true
         this.group.groupScore = eventData.questionScore
         this.$emit('nextGroup')
+      },
+      deselectAnswer: function (eventData) {
+        for (var i = 0; i < this.group.length; i++) {
+          console.log(this.group[i])
+          this.group[i].selected = false
+        }
+        this.$emit('nextGroup')
       }
     }
   }
@@ -34,9 +41,12 @@
 <style>
   .question-group {
     width: 100%;
-    background: gray;
+    margin-top: 50px;
+    background: #bdc3c7;
+    color: white;
     float: left;
-    padding: 50px;
+    padding: 30px;
+    box-sizing: border-box;
     margin-bottom: 50px;
   }
 </style>

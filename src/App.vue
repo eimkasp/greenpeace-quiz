@@ -2,7 +2,15 @@
   <div id="app">
     <div class="container">
       <div class="answer">
-        {{ totalScore }}
+        <div>
+          Total Score: {{ totalScore }}
+        </div>
+        <div>
+          Step: {{ questionIndex+1 }} out of {{ questionGroups.length }}
+        </div>
+        <loading-bar
+                v-bind:totalQuestions="questionGroups.length"
+                v-bind:questionIndex="questionIndex"></loading-bar>
       </div>
 
       <transition-group name="fade">
@@ -36,7 +44,7 @@
     return {
       totalScore: 0,
       questionIndex: 0,
-      animationEnabled: false, // Parameter to enable or disable animation
+      animationEnabled: true, // Parameter to enable or disable animation
       questionGroups: [
         {
           groupTitle: 'Group1',
@@ -136,11 +144,13 @@
   }
 
   import QuestionGroup from './components/QuestionGroup'
+  import LoadingBar from './components/LoadingBar'
 
   export default {
     name: 'app',
     components: {
-      QuestionGroup
+      QuestionGroup,
+      LoadingBar
     },
     data () {
       return initialState()
@@ -174,7 +184,7 @@
 
 <style>
   #app {
-    font-famillsy: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -184,6 +194,7 @@
 
   .container {
     width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     position: relative;
   }
@@ -191,7 +202,10 @@
   .answer {
     position: fixed;
     width: 100%;
-    background: green;
+    background: #7f8c8d;
+    color: white;
+    padding: 10px 0;
+    box-sizing: border-box;
     left: 0;
     top: 0;
   }
