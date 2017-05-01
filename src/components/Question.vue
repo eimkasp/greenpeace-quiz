@@ -1,6 +1,6 @@
 <template>
   <div class='single-question'
-       v-on:click="selected()"
+       v-on:click="selected(question)"
        v-bind:class="{ selectedItem: question.selected}">
     <img :src="question.image"/>
     <div class="question-title">
@@ -19,13 +19,14 @@
       }
     },
     methods: {
-      selected: function () {
+      selected: function (question) {
         /* Check if this answer was already answered */
         if (this.isGroupSelected === true) {
           alert('this answer is already answered')
         } else {
+          this.groupScore = this.question.questionScore
           this.question.selected = !this.question.selected
-          this.$emit('groupSelected')
+          this.$emit('groupSelected', question)
         }
       }
     }

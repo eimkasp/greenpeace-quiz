@@ -7,6 +7,7 @@
               v-on:groupSelected="disableGroup"
               v-for="question in group.questions"
               :is-group-selected="group.selected"
+              :group-socre="group.groupScore"
               v-bind:question="question"></question>
     </div>
   </div>
@@ -21,9 +22,11 @@
       Question
     },
     methods: {
-      disableGroup: function () {
+      disableGroup: function (eventData) {
+        console.log(eventData)
         console.log('disable group')
         this.group.selected = true
+        this.group.groupScore = eventData.questionScore
       }
     }
   }
