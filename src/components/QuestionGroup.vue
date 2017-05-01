@@ -23,10 +23,9 @@
     },
     methods: {
       disableGroup: function (eventData) {
-        console.log(eventData)
-        console.log('disable group')
         this.group.selected = true
         this.group.groupScore = eventData.questionScore
+        this.$emit('nextGroup')
       }
     }
   }
