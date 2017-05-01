@@ -8,6 +8,7 @@
               v-for="question in group.questions"
               :is-group-selected="group.selected"
               :group-socre="group.groupScore"
+              :key="question.title"
               v-bind:question="question"></question>
     </div>
   </div>

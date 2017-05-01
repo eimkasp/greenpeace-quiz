@@ -8,7 +8,7 @@
       <transition-group name="fade">
         <question-group
                 v-on:nextGroup="nextGroup"
-                v-show="index === questionIndex"
+                v-show="index === questionIndex || !animationEnabled"
                 v-for="(group, index) in questionGroups"
                 :key="group.id"
                 v-bind:group="group"></question-group>
@@ -36,6 +36,7 @@
     return {
       totalScore: 0,
       questionIndex: 0,
+      animationEnabled: false, // Parameter to enable or disable animation
       questionGroups: [
         {
           groupTitle: 'Group1',
@@ -164,7 +165,7 @@
       },
       restartQuiz: function () {
         this.questionIndex = 0
-        //   this.$data = initialState()
+      //  this.data = initialState()
       }
     }
 
