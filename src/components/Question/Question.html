@@ -1,7 +1,7 @@
 <div class='single-question'
      v-on:click="selected(question)"
      v-bind:class="{ selectedItem: question.selected}">
-  <img :src="question.image"/>
+  <img :src="question.image" v-if="question.image"/>
   <div class="question-title">
     {{ question.title }}
     {{ question.selected }}

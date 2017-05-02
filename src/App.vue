@@ -19,6 +19,7 @@
                 v-show="index === questionIndex || !animationEnabled"
                 v-for="(group, index) in questionGroups"
                 :key="group.id"
+                v-bind:id="'group' + index"
                 v-bind:group="group"></question-group>
       </transition-group>
 
@@ -44,7 +45,7 @@
     return {
       totalScore: 0,
       questionIndex: 0,
-      animationEnabled: true, // Parameter to enable or disable animation
+      animationEnabled: false, // Parameter to enable or disable animation
       questionGroups: [
         {
           groupTitle: 'Group1',
@@ -169,16 +170,29 @@
       },
       nextGroup: function () {
         this.questionIndex++
+        var nextGroup = this.$el.querySelector('#group' + this.questionIndex)
+        console.log(nextGroup)
+        this.scrollTo(nextGroup, nextGroup.scrollHeight, 5000)
+        console.log(nextGroup.scrollY)
         if (this.questionIndex === this.questionGroups.length) {
           this.countScore()
         }
       },
       restartQuiz: function () {
         this.questionIndex = 0
-      //  this.data = initialState()
+        //  this.data = initialState()
+      },
+      scrollTo: function (element, to, duration) {
+        if (duration < 0) return
+        var difference = to - element.scrollTop
+        var perTick = difference / duration * 2
+
+        setTimeout(function () {
+          element.scrollTop = element.scrollTop + perTick
+          scrollTo(element, to, duration - 2)
+        }, 10)
       }
     }
-
   }
 </script>
 
